@@ -112,7 +112,7 @@
 				}
 				http.post('marker/delete', payload, res => {
 					this.markers = this.markers.filter(marker => {
-						marker.id != this.delete_id
+						if (marker.id !== this.delete_id) return true
 					})
 					this.toastMessage('マーカーを削除しました')
 				}, err => {
