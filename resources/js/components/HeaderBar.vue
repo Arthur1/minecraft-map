@@ -2,7 +2,7 @@
 	<div>
 		<header class="navbar-fixed">
 			<nav>
-				<div class="nav-wrapper teal">
+				<div class="nav-wrapper green">
 					<div class="hide-on-med-and-down left">
 						<router-link to="/" class="brand-logo">MineMap</router-link>
 					</div>
