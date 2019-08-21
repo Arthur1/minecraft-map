@@ -22,9 +22,9 @@
 return array(
 	'default' => array(
 		'connection' => array(
-			'dsn'      => 'mysql:host=localhost;dbname=fuel_dev',
-			'username' => 'root',
-			'password' => 'root',
+			'dsn'      => 'mysql:host=minecraft-map_mysql_1;dbname=minecraft-map',
+			'username' => 'user',
+			'password' => 'password',
 		),
 	),
 );
