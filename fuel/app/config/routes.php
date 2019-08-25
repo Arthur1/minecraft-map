@@ -18,7 +18,7 @@ return array(
 	 *
 	 */
 
-	'_root_' => 'welcome/index',
+	'_root_' => 'index',
 
 	/**
 	 * -------------------------------------------------------------------------
@@ -27,7 +27,7 @@ return array(
 	 *
 	 */
 
-	'_404_' => 'welcome/404',
+	'_404_' => 'index',
 
 	/**
 	 * -------------------------------------------------------------------------
@@ -38,5 +38,5 @@ return array(
 	 *
 	 */
 
-	'hello(/:name)?' => array('welcome/hello', 'name' => 'hello'),
+	// 'hello(/:name)?' => array('welcome/hello', 'name' => 'hello'),
 );
