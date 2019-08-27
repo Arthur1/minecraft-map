@@ -16,6 +16,10 @@ $ cd minecraft-map
 $ composer install
 $ npm install
 $ docker-compose build
+$ docker-compose up -d
+$ docker exec -it minecraft-map_php_1 bash
+# php oil refine migrate
+# exit
 ```
 
 ## local server
