@@ -7,6 +7,9 @@
 					<i class="material-icons left">update</i>更新
 				</button>
 			</div>
+			<div id="mapWrapper">
+				<canvas id="map" width="1000" height="1000"></canvas>
+			</div>
 			<h2 class="blue-text">マーカー追加</h2>
 			<div class="row">
 				<div class="col s12 input-field">
@@ -19,7 +22,7 @@
 				</div>
 				<div class="col s12 m4 input-field">
 					<input type="number" v-model="y" id="form_y" required>
-					<label for="form_x">y座標(省略可)</label>
+					<label for="form_x">y座標</label>
 				</div>
 				<div class="col s12 m4 input-field">
 					<input type="number" v-model="z" id="form_z" required>
@@ -57,6 +60,16 @@
 		</div>
 	</div>
 </template>
+<style scoped>
+[id="mapWrapper"] {
+	width: 100%;
+	height: 60vh;
+	overflow: auto;
+}
+[id="map"] {
+	background: white;
+}
+</style>
 <script>
 	import http from '../services/http.js'
 	export default {
@@ -72,22 +85,48 @@
 		},
 		mounted() {
 			// マーカー情報取得
-			http.get('marker/list', {}, res => {
-				this.markers = res.data
-			}, err => {
-				this.toastError('マーカー情報の取得に失敗しました')
-			})
+			this.update()
 			// モーダルinit
-			let elems = document.querySelectorAll('.modal');
- 			M.Modal.init(elems, {});
+			let elems = document.querySelectorAll('.modal')
+			M.Modal.init(elems, {})
+			// mapスクロール
+		},
+		computed: {
+			x_list() { return this.markers.map(marker => marker.x) },
+			z_list() { return this.markers.map(marker => marker.z) },
+			max_x() {
+				let max_x = this.x_list.reduce((x, cur) => Math.max(x, cur), -Infinity)
+				return max_x + 200
+			},
+			min_x() {
+				let min_x = this.x_list.reduce((x, cur) => Math.min(x, cur), Infinity)
+				return min_x - 100
+			},
+			max_z() {
+				let max_z = this.z_list.reduce((z, cur) => Math.max(z, cur), -Infinity)
+				return max_z + 100
+			},
+			min_z() {
+				let min_z = this.z_list.reduce((z, cur) => Math.min(z, cur), Infinity)
+				return min_z - 100
+			},
+			canvas_width() { return this.max_x - this.min_x },
+			canvas_height() { return this.max_z - this.min_z }
 		},
 		methods: {
 			update() {
 				http.get('marker/list', {}, res => {
 					this.markers = res.data
-					this.toastMessage('マーカー情報を更新しました')
+					this.markers.forEach(marker => {
+						marker.x = Number(marker.x)
+						marker.y = Number(marker.y)
+						marker.z = Number(marker.z)
+					})
+					// マーカー描画
+					this.drawMap()
+					this.toastMessage('マーカー情報を取得しました')
 				}, err => {
-					this.toastError('マーカー情報の更新に失敗しました')
+					this.toastError('マーカー情報の取得に失敗しました')
 				})
 			},
 			createMarker() {
@@ -101,6 +140,7 @@
 					payload.id = res.data.id
 					this.markers.push(payload)
 					this.clear()
+					this.drawMap()
 					this.toastMessage('マーカーを追加しました')
 				}, err => {
 					this.toastError('マーカーの追加に失敗しました')
@@ -112,8 +152,9 @@
 				}
 				http.post('marker/delete', payload, res => {
 					this.markers = this.markers.filter(marker => {
-						if (marker.id !== this.delete_id) return true
+						if (marker.id != this.delete_id) return true
 					})
+					this.drawMap()
 					this.toastMessage('マーカーを削除しました')
 				}, err => {
 					this.toastError('マーカーの削除に失敗しました')
@@ -133,6 +174,32 @@
 				this.x = null
 				this.y = null
 				this.z = null
+			},
+			drawMap() {
+				this.resetMap()
+				this.markers.forEach(this.plotMarker)
+			},
+			resetMap() {
+				let canvas = document.getElementById('map')
+				let ctx = canvas.getContext('2d')
+				canvas.setAttribute('width', this.canvas_width)
+				canvas.setAttribute('height', this.canvas_height)
+				ctx.clearRect(0, 0, canvas.width, canvas.height)
+			},
+			plotMarker(marker) {
+				let canvas = document.getElementById('map')
+				let ctx = canvas.getContext('2d')
+				let x = marker.x - this.min_x
+				let z = marker.z - this.min_z
+
+				ctx.beginPath()
+				ctx.arc(x, z, 10, 0, Math.PI * 2, true)
+				ctx.fillStyle = 'hsl(' + Math.random() * 360 + ', 80%, 60%)'
+				ctx.fill()
+				ctx.fillStyle = 'black'
+				ctx.font = "20px Noto Sans JP"
+				ctx.fillText(marker.name, x, z)
+				ctx.fillText(`(${marker.x},${marker.y},${marker.z})`, x, z + 20)
 			}
 		}
 	}
