@@ -31,11 +31,11 @@ desktop.ini
 /fuel/app/logs/*/*/*
 /fuel/app/cache/*/*
 /fuel/app/config/crypt.php
+/fuel/app/config/development/migrations.php
 
 # docker
 /docker/mysql/*
 node_modules
-/docker/nginx/server.conf
 
 # webpack
 /public/assets/css/*
