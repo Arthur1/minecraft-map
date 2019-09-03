@@ -35,6 +35,10 @@
 				</div>
 			</div>
 			<h2 class="blue-text">マーカー一覧</h2>
+			<button class="btn" @click="toggleNether()">
+				<i class="material-icons left" v-show="showNether == true">show overworld</i>
+				<i class="material-icons left" v-show="showNether == false">show nether</i>
+			</button>
 			<table class="stripe">
 				<tr>
 					<th>名前</th>
@@ -43,7 +47,8 @@
 				</tr>
 				<tr v-for="marker of markers" :key="marker.id">
 					<td>{{ marker.name }}</td>
-					<td>({{ marker.x }}, {{ marker.y }}, {{ marker.z }})</td>
+					<td v-show="showNether == false">({{ marker.x }}, {{ marker.y }}, {{ marker.z }})</td>
+					<td v-show="showNether == true">({{ marker.nether_x }}, {{ marker.nether_y }}, {{ marker.nether_z }})</td>
 					<td><a href="#modal_delete" class="red-text modal-trigger" @click="updateDeleteId(marker.id)">削除</a></td>
 				</tr>
 			</table>
@@ -81,6 +86,7 @@
 				y: null,
 				z: null,
 				delete_id: null,
+				showNether: false,
 			}
 		},
 		mounted() {
@@ -121,6 +127,9 @@
 						marker.x = Number(marker.x)
 						marker.y = Number(marker.y)
 						marker.z = Number(marker.z)
+						marker.nether_x = marker.x / 8
+						marker.nether_y = marker.y
+						marker.nether_z = marker.z / 8
 					})
 					// マーカー描画
 					this.drawMap()
