@@ -35,14 +35,15 @@
 				</div>
 			</div>
 			<h2 class="blue-text">マーカー一覧</h2>
-			<button class="btn" @click="toggleNether()">
-				<i class="material-icons left" v-show="showNether == true">show overworld</i>
-				<i class="material-icons left" v-show="showNether == false">show nether</i>
+			<button class="btn teal waves-effect waves-light" @click="toggleNether()">
+				<span class="left" v-show="showNether == true">show overworld</span>
+				<span class="left" v-show="showNether == false">show nether</span>
 			</button>
 			<table class="stripe">
 				<tr>
 					<th>名前</th>
-					<th>座標</th>
+					<th v-show="showNether == true">ネザー座標</th>
+					<th v-show="showNether == false">地上座標</th>
 					<th></th>
 				</tr>
 				<tr v-for="marker of markers" :key="marker.id">
