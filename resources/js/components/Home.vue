@@ -200,6 +200,19 @@
 				ctx.font = "20px Noto Sans JP"
 				ctx.fillText(marker.name, x, z)
 				ctx.fillText(`(${marker.x},${marker.y},${marker.z})`, x, z + 20)
+			},
+			calcNether(marker) {
+				let nether_marker = {
+					name: marker.name,
+					x: marker.x,
+					y: marker.y,
+					z: marker.z
+				}
+
+				nether_marker.x = nether_marker.x / 8
+				nether_marker.z = nether_marker.z / 8
+
+				// todo
 			}
 		}
 	}
