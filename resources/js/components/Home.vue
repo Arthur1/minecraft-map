@@ -210,7 +210,9 @@
 				ctx.fillText(marker.name, x, z)
 				ctx.fillText(`(${marker.x},${marker.y},${marker.z})`, x, z + 20)
 			},
-
+			toggleNether(){
+				this.showNether = !(this.showNether)
+			}
 		}
 	}
 </script>
