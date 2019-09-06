@@ -148,6 +148,11 @@
 				}
 				http.post('marker/create', payload, res => {
 					payload.id = res.data.id
+
+					payload.nether_x = payload.x / 8
+					payload.nether_y = payload.y
+					payload.nether_z = payload.z / 8
+
 					this.markers.push(payload)
 					this.clear()
 					this.drawMap()
