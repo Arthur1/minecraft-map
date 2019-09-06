@@ -79,6 +79,12 @@
 [id="map"] {
 	background: white;
 }
+.switch label input[type=checkbox]:checked+.lever:after {
+	background-color: #b71c1c !important;
+}
+.switch label input[type=checkbox]:checked+.lever {
+	background-color: #ffcdd2 !important;
+}
 </style>
 <script>
 	import http from '../services/http.js'
