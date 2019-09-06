@@ -36,20 +36,20 @@
 			</div>
 			<h2 class="blue-text">マーカー一覧</h2>
 			<button class="btn teal waves-effect waves-light" @click="toggleNether()">
-				<span class="left" v-show="showNether == true">show overworld</span>
-				<span class="left" v-show="showNether == false">show nether</span>
+				<span class="left" v-show="isNether == true">show overworld</span>
+				<span class="left" v-show="isNether == false">show nether</span>
 			</button>
 			<table class="stripe">
 				<tr>
 					<th>名前</th>
-					<th v-show="showNether == true">ネザー座標</th>
-					<th v-show="showNether == false">地上座標</th>
+					<th v-show="isNether == true">ネザー座標</th>
+					<th v-show="isNether == false">地上座標</th>
 					<th></th>
 				</tr>
 				<tr v-for="marker of markers" :key="marker.id">
 					<td>{{ marker.name }}</td>
-					<td v-show="showNether == false">({{ marker.x }}, {{ marker.y }}, {{ marker.z }})</td>
-					<td v-show="showNether == true">({{ marker.nether_x }}, {{ marker.nether_y }}, {{ marker.nether_z }})</td>
+					<td v-show="isNether == false">({{ marker.x }}, {{ marker.y }}, {{ marker.z }})</td>
+					<td v-show="isNether == true">({{ marker.nether_x }}, {{ marker.nether_y }}, {{ marker.nether_z }})</td>
 					<td><a href="#modal_delete" class="red-text modal-trigger" @click="updateDeleteId(marker.id)">削除</a></td>
 				</tr>
 			</table>
@@ -217,7 +217,7 @@
 				ctx.fillText(`(${marker.x},${marker.y},${marker.z})`, x, z + 20)
 			},
 			toggleNether(){
-				this.showNether = !(this.showNether)
+				this.isNether = !(this.isNether)
 			}
 		}
 	}
