@@ -144,10 +144,7 @@
 					name: this.name,
 					x: this.x,
 					y: this.y,
-					z: this.z,
-					nether_x: this.x / 8,
-					nether_y: this.y,
-					nether_z: this.z / 8
+					z: this.z
 				}
 				http.post('marker/create', payload, res => {
 					payload.id = res.data.id
