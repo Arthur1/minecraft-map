@@ -35,15 +35,25 @@
 				</div>
 			</div>
 			<h2 class="blue-text">マーカー一覧</h2>
+			<div class="switch">
+				<label>
+					OverWorld
+					<input type="checkbox" v-model="isNether">
+					<span class="lever"></span>
+					Nether
+				</label>
+			</div>
 			<table class="stripe">
 				<tr>
 					<th>名前</th>
-					<th>座標</th>
+					<th v-show="isNether">ネザー座標</th>
+					<th v-show="!(isNether)">地上座標</th>
 					<th></th>
 				</tr>
 				<tr v-for="marker of markers" :key="marker.id">
 					<td>{{ marker.name }}</td>
-					<td>({{ marker.x }}, {{ marker.y }}, {{ marker.z }})</td>
+					<td v-show="!(isNether)">({{ marker.x }}, {{ marker.y }}, {{ marker.z }})</td>
+					<td v-show="isNether">({{ marker.nether_x }}, {{ marker.nether_y }}, {{ marker.nether_z }})</td>
 					<td><a href="#modal_delete" class="red-text modal-trigger" @click="updateDeleteId(marker.id)">削除</a></td>
 				</tr>
 			</table>
@@ -69,6 +79,12 @@
 [id="map"] {
 	background: white;
 }
+.switch label input[type=checkbox]:checked+.lever:after {
+	background-color: #b71c1c !important;
+}
+.switch label input[type=checkbox]:checked+.lever {
+	background-color: #ffcdd2 !important;
+}
 </style>
 <script>
 	import http from '../services/http.js'
@@ -81,6 +97,7 @@
 				y: null,
 				z: null,
 				delete_id: null,
+				isNether: false,
 			}
 		},
 		mounted() {
@@ -121,6 +138,9 @@
 						marker.x = Number(marker.x)
 						marker.y = Number(marker.y)
 						marker.z = Number(marker.z)
+						marker.nether_x = Math.round(marker.x / 8)
+						marker.nether_y = marker.y
+						marker.nether_z = Math.round(marker.z / 8)
 					})
 					// マーカー描画
 					this.drawMap()
@@ -138,6 +158,11 @@
 				}
 				http.post('marker/create', payload, res => {
 					payload.id = res.data.id
+
+					payload.nether_x = Math.round(payload.x / 8)
+					payload.nether_y = payload.y
+					payload.nether_z = Math.round(payload.z / 8)
+
 					this.markers.push(payload)
 					this.clear()
 					this.drawMap()
