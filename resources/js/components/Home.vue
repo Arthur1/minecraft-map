@@ -35,10 +35,14 @@
 				</div>
 			</div>
 			<h2 class="blue-text">マーカー一覧</h2>
-			<button class="btn teal waves-effect waves-light" @click="toggleNether()">
-				<span class="left" v-show="isNether">show overworld</span>
-				<span class="left" v-show="!(isNether)">show nether</span>
-			</button>
+			<div class="switch">
+				<label>
+					OverWorld
+					<input type="checkbox" v-model="isNether">
+					<span class="lever"></span>
+					Nether
+				</label>
+			</div>
 			<table class="stripe">
 				<tr>
 					<th>名前</th>
@@ -215,9 +219,6 @@
 				ctx.font = "20px Noto Sans JP"
 				ctx.fillText(marker.name, x, z)
 				ctx.fillText(`(${marker.x},${marker.y},${marker.z})`, x, z + 20)
-			},
-			toggleNether(){
-				this.isNether = !(this.isNether)
 			}
 		}
 	}
