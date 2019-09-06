@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col s12 input-field">
 					<input type="text" v-model="name" id="form_name" required>
-					<label for="form_x">名前</label>
+					<label for="form_name">名前</label>
 				</div>
 				<div class="col s12 m4 input-field">
 					<input type="number" v-model="x" id="form_x" required>
@@ -22,11 +22,11 @@
 				</div>
 				<div class="col s12 m4 input-field">
 					<input type="number" v-model="y" id="form_y" required>
-					<label for="form_x">y座標</label>
+					<label for="form_y">y座標</label>
 				</div>
 				<div class="col s12 m4 input-field">
 					<input type="number" v-model="z" id="form_z" required>
-					<label for="form_x">z座標</label>
+					<label for="form_z">z座標</label>
 				</div>
 				<div class="col s12 input-fileld">
 					<button class="btn teal waves-effect waves-light" @click="createMarker()">
