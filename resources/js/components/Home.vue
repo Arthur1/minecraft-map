@@ -138,9 +138,9 @@
 						marker.x = Number(marker.x)
 						marker.y = Number(marker.y)
 						marker.z = Number(marker.z)
-						marker.nether_x = marker.x / 8
+						marker.nether_x = Math.round(marker.x / 8)
 						marker.nether_y = marker.y
-						marker.nether_z = marker.z / 8
+						marker.nether_z = Math.round(marker.z / 8)
 					})
 					// マーカー描画
 					this.drawMap()
@@ -159,9 +159,9 @@
 				http.post('marker/create', payload, res => {
 					payload.id = res.data.id
 
-					payload.nether_x = payload.x / 8
+					payload.nether_x = Math.round(payload.x / 8)
 					payload.nether_y = payload.y
-					payload.nether_z = payload.z / 8
+					payload.nether_z = Math.round(payload.z / 8)
 
 					this.markers.push(payload)
 					this.clear()
