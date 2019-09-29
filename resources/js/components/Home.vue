@@ -54,7 +54,7 @@
 					<td>{{ marker.name }}</td>
 					<td v-show="!(isNether)">({{ marker.x }}, {{ marker.y }}, {{ marker.z }})</td>
 					<td v-show="isNether">({{ marker.nether_x }}, {{ marker.nether_y }}, {{ marker.nether_z }})</td>
-					<td><a href="#modal_delete" class="red-text modal-trigger" @click="updateDeleteId(marker.id)">削除</a></td>
+					<td><a href="#modal_delete" class="red-text modal-trigger" @click="updateDeleteId(marker.id)"><i class="material-icons">delete</i></a></td>
 				</tr>
 			</table>
 		</div>
@@ -79,9 +79,15 @@
 [id="map"] {
 	background: white;
 }
+/* クリック中に周りに表示される円 */
+.switch label input[type=checkbox]:checked+.lever:before {
+	background-color: rgba(255, 205, 210, 0.25) !important;
+}
+/* ON時のレバー */
 .switch label input[type=checkbox]:checked+.lever:after {
 	background-color: #b71c1c !important;
 }
+/* ON時のレバー背景 */
 .switch label input[type=checkbox]:checked+.lever {
 	background-color: #ffcdd2 !important;
 }
@@ -164,7 +170,7 @@
 					payload.nether_z = Math.round(payload.z / 8)
 
 					this.markers.push(payload)
-					// this.clear()
+					this.clear()
 					// this.drawMap()
 					this.toastMessage('マーカーを追加しました')
 				}, err => {
