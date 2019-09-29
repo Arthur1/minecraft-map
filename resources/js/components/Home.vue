@@ -79,9 +79,15 @@
 [id="map"] {
 	background: white;
 }
+/* クリック中に周りに表示される円 */
+.switch label input[type=checkbox]:checked+.lever:before {
+	background-color: rgba(255, 205, 210, 0.25) !important;
+}
+/* ON時のレバー */
 .switch label input[type=checkbox]:checked+.lever:after {
 	background-color: #b71c1c !important;
 }
+/* ON時のレバー背景 */
 .switch label input[type=checkbox]:checked+.lever {
 	background-color: #ffcdd2 !important;
 }
