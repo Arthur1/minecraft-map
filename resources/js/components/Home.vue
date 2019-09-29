@@ -54,7 +54,7 @@
 					<td>{{ marker.name }}</td>
 					<td v-show="!(isNether)">({{ marker.x }}, {{ marker.y }}, {{ marker.z }})</td>
 					<td v-show="isNether">({{ marker.nether_x }}, {{ marker.nether_y }}, {{ marker.nether_z }})</td>
-					<td><a href="#modal_delete" class="red-text modal-trigger" @click="updateDeleteId(marker.id)">削除</a></td>
+					<td><a href="#modal_delete" class="red-text modal-trigger" @click="updateDeleteId(marker.id)"><i class="material-icons">delete</i></a></td>
 				</tr>
 			</table>
 		</div>
