@@ -170,7 +170,7 @@
 					payload.nether_z = Math.round(payload.z / 8)
 
 					this.markers.push(payload)
-					// this.clear()
+					this.clear()
 					// this.drawMap()
 					this.toastMessage('マーカーを追加しました')
 				}, err => {
